@@ -34,29 +34,29 @@ public class SongH2Service implements SongRepository {
     }
 
     @Override
-    public Song addSong(Song addSung) {
+    public Song addSong(Song song) {
         jd.update("INSERT INTO PLAYLIST(songName, lyricist, singer, musicDirector) VALUES(?, ?, ?, ?)",
-                addSung.getSongName(), addSung.getLyricist(), addSung.getSinger(), addSung.getMusicDirector());
+                song.getSongName(), song.getLyricist(), song.getSinger(), song.getMusicDirector());
         Song AddingSung = jd.queryForObject(
                 "SELECT * FROM PLAYLIST WHERE songName = ? and lyricist = ? and singer = ? and musicDirector = ?",
-                new SongRowMapper(), addSung.getSongName(), addSung.getLyricist(), addSung.getSinger(),
-                addSung.getMusicDirector());
+                new SongRowMapper(), song.getSongName(), song.getLyricist(), song.getSinger(),
+                song.getMusicDirector());
         return AddingSung;
     }
 
     @Override
-    public Song updateSong(int songId, Song putSong) {
-        if (putSong.getSongName() != null) {
-            jd.update("UPDATE PLAYLIST SET songName = ?", putSong.getSongName(), songId);
+    public Song updateSong(int songId, Song song) {
+        if (song.getSongName() != null) {
+            jd.update("UPDATE PLAYLIST SET songName = ?", song.getSongName(), songId);
         }
-        if (putSong.getLyricist() != null) {
-            jd.update("UPDATE PLAYLIST SET lyricist = ?", putSong.getLyricist(), songId);
+        if (song.getLyricist() != null) {
+            jd.update("UPDATE PLAYLIST SET lyricist = ?", song.getLyricist(), songId);
         }
-        if (putSong.getSinger() != null) {
-            jd.update("UPDATE PLAYLIST SET singer = ?", putSong.getSinger(), songId);
+        if (song.getSinger() != null) {
+            jd.update("UPDATE PLAYLIST SET singer = ?", song.getSinger(), songId);
         }
-        if (putSong.getMusicDirector() != null) {
-            jd.update("UPDATE PLAYLIST SET musicDirector = ?", putSong.getMusicDirector(), songId);
+        if (song.getMusicDirector() != null) {
+            jd.update("UPDATE PLAYLIST SET musicDirector = ?", song.getMusicDirector(), songId);
         }
         return gettingSong(songId);
     }

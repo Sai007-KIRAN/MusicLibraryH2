@@ -8,9 +8,9 @@ public interface SongRepository {
 
     Song gettingSong(int songId);
 
-    Song addSong(Song addSung);
+    Song addSong(Song song);
 
-    Song updateSong(int songId, Song putSong);
+    Song updateSong(int songId, Song song);
 
     void deleteSong(int songId);
 }
