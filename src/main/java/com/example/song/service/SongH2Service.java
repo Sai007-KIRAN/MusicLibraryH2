@@ -39,9 +39,8 @@ public class SongH2Service implements SongRepository {
         jd.update("INSERT INTO PLAYLIST(songName, lyricist, singer, musicDirector) VALUES(?, ?, ?, ?)",
                 song.getSongName(), song.getLyricist(), song.getSinger(), song.getMusicDirector());
         Song AddingSung = jd.queryForObject(
-                "SELECT * FROM PLAYLIST WHERE songName = ? and lyricist = ? and singer = ? and musicDirector = ?",
-                new SongRowMapper(), song.getSongName(), song.getLyricist(), song.getSinger(),
-                song.getMusicDirector());
+                "SELECT * FROM PLAYLIST WHERE songName = ? and lyricist = ?",
+                new SongRowMapper(), song.getSongName(), song.getLyricist());
         return AddingSung;
     }
 
@@ -53,16 +52,16 @@ public class SongH2Service implements SongRepository {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         if (song.getSongName() != null) {
-            jd.update("UPDATE PLAYLIST SET songName = ?", song.getSongName(), songId);
+            jd.update("UPDATE PLAYLIST SET songName = ? where songId =?", song.getSongName(), songId);
         }
         if (song.getLyricist() != null) {
-            jd.update("UPDATE PLAYLIST SET lyricist = ?", song.getLyricist(), songId);
+            jd.update("UPDATE PLAYLIST SET lyricist = ? where songId =?", song.getLyricist(), songId);
         }
         if (song.getSinger() != null) {
-            jd.update("UPDATE PLAYLIST SET singer = ?", song.getSinger(), songId);
+            jd.update("UPDATE PLAYLIST SET singer = ? where songId =?", song.getSinger(), songId);
         }
         if (song.getMusicDirector() != null) {
-            jd.update("UPDATE PLAYLIST SET musicDirector = ?", song.getMusicDirector(), songId);
+            jd.update("UPDATE PLAYLIST SET musicDirector = ? where songId =?", song.getMusicDirector(), songId);
         }
         return gettingSong(songId);
     }
