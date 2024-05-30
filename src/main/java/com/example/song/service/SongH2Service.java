@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.*;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import com.example.song.model.Song;
 import com.example.song.model.SongRowMapper;
 import com.example.song.repository.SongRepository;
@@ -46,6 +47,11 @@ public class SongH2Service implements SongRepository {
 
     @Override
     public Song updateSong(int songId, Song song) {
+        try {
+            Song existing = jd.queryForObject("SELECT * FROM PLAYLIST WHERE songId = ?", new SongRowMapper(), songId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
         if (song.getSongName() != null) {
             jd.update("UPDATE PLAYLIST SET songName = ?", song.getSongName(), songId);
         }

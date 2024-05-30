@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
-class SongController {
+public class SongController {
     @Autowired
     public SongH2Service shs;
 
@@ -39,7 +39,7 @@ class SongController {
     }
 
     @DeleteMapping("/songs/{songId}")
-    public void deleteSong(@PathVariable("songId") int songId) {
+    public void deleteSong(@PathVariable int songId) {
         shs.deleteSong(songId);
     }
 
